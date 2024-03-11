@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { createContext, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import { BrowserRouter } from 'react-router-dom'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+export const RandomMoviesContainer = createContext(null);
+
+function Index() {
+  const [movies, setMovies] = useState([]);
+
+  return (
+    <React.StrictMode>
+      <BrowserRouter>
+        <RandomMoviesContainer.Provider value={{ movies, setMovies }}>
+          <App />
+        </RandomMoviesContainer.Provider>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Index />);
