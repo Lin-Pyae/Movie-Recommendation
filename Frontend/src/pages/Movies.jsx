@@ -18,8 +18,6 @@ const Movies = () => {
         animationData: LoadingAnimation,
         loop: true
     };
-
-    const { View } = useLottie(options);
     
     const getMovies = async () => {
         try {
