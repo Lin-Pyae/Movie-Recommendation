@@ -1,0 +1,74 @@
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { RandomMoviesContainer } from "../main";
+
+const movieView = () => {
+
+  const { id } = useParams();
+  const { recommendedMovies } = useContext(RandomMoviesContainer);
+  const foundMovie = recommendedMovies.find(movie => movie.id === Number(id));
+  const [movie, setMovie] = useState(foundMovie);
+  const [loading, setLoading] = useState(!foundMovie);
+
+  console.log(movie)
+
+  useEffect(() => {
+    if (!movie) {
+      const API_KEY = '8ecbf28985308ca3b14b540321587f1f';
+
+      fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(movie => {
+          setMovie(movie);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }, [id]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const posterUrl = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+    : null;
+
+  return (
+    <section>
+      <div className=' flex justify-center mx-64 my-10 gap-6'>
+        <img src={posterUrl} alt="" />
+        <div className=''>
+          <h1 className=' text-4xl text-center font-bold my-10'>{movie.original_title}</h1>
+          <h4 className=' text-2xl my-5'>
+              {movie.tagline}
+          </h4>
+          <p className="lead mt-3 text-gray-600 text-xl my-10">
+            <span className=' text-2xl text-gray-950'>
+              Overview
+            </span>
+             - {movie.overview}
+          </p>
+          <h4 className=' text-2xl my-5'>
+              Release Date - {movie.release_date}
+          </h4>
+          <h4 className=' text-2xl my-5'>
+              Language - {movie.spoken_languages[0].name}
+          </h4>
+          <h4 className=' text-2xl my-5'>
+              Genres - {movie.genres.map((genre, i) => genre.name).join(', ')}
+          </h4>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default movieView;
