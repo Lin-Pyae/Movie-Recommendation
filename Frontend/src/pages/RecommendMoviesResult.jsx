@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import MovieCard from '../components/MovieCard';
 import { RandomMoviesContainer } from "../main";
+import "../css/main.css"
 
 const getMovieDetails = (movieId) => {
 
@@ -57,9 +58,9 @@ const RecommendMoviesResult = () => {
     }
 
     return (
-      <section >
-        <h1 className="text-center text-5xl mt-4 font-bold leading-normal">Our Recommendations For You</h1>
-        <div className='flex flex-wrap justify-cente gap-4'>
+      <section className=' mx-60 my-10'>
+        <h1 className="text-center text-5xl mt-4 font-bold leading-normal my-10 bebas-neue-regular">Our Recommendations For You</h1>
+        <div className='flex flex-wrap justify-cente gap-20'>
           {recommendedMovies.map((movie) => (
             <MovieCard movie={movie} key={movie.id} />
           ))}

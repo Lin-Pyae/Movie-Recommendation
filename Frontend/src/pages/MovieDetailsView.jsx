@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { RandomMoviesContainer } from "../main";
+import {motion} from 'framer-motion';
+import { FaArrowLeft } from "react-icons/fa";
+import {Link} from 'react-router-dom';
 
 const movieView = () => {
 
@@ -43,10 +46,17 @@ const movieView = () => {
 
   return (
     <section>
+      <motion.div 
+          initial={{ x: -1000 }}
+          animate={{ x:  0}}
+          transition={{ duration: 1, delay: .2}}
+          className='fixed top-10 left-20'>
+            <Link to='/recommendations_result'><div className='text-xl bg-[#f8b500] text-white py-3 px-4'><FaArrowLeft /></div></Link>
+      </motion.div> 
       <div className=' flex justify-center mx-64 my-10 gap-6'>
         <img src={posterUrl} alt="" />
         <div className=''>
-          <h1 className=' text-4xl text-center font-bold my-10'>{movie.original_title}</h1>
+          <h1 className=' text-5xl text-center font-bold my-10'>{movie.original_title}</h1>
           <h4 className=' text-2xl my-5'>
               {movie.tagline}
           </h4>
