@@ -5,6 +5,7 @@ import { RandomMoviesContainer } from "../main";
 const Movies = () => {
 
     const {movies, setMovies} = useContext(RandomMoviesContainer)
+    const {chosenMovies, setChosenMovies} = useContext(RandomMoviesContainer)
 
     const API_KEY = '8ecbf28985308ca3b14b540321587f1f';
     const API_URL = 'https://api.themoviedb.org/3';
@@ -25,12 +26,16 @@ const Movies = () => {
           .slice(0, 10);
   
           setMovies(randomMovies);
-          console.log(movies);
   
       } catch (error) {
         console.error('Error fetching random movies:', error);
       }
     }
+
+    const addMovies = (movie) => {
+      setChosenMovies(prevChosenMovies => [...prevChosenMovies, {id: movie.id, title: movie.title}]);
+    }
+
   
     useEffect(() => {
       getMovies();
@@ -47,7 +52,7 @@ const Movies = () => {
                 (
                     <div className="flex flex-wrap justify-center items-start gap-5">
                     {movies.map(movie => (
-                      <div key={movie.id} className="max-w-[200px] h-[400px] bg-gray-100 rounded-lg overflow-hidden shadow-md mb-5" onClick={() => console.log(movie.id)}>
+                      <div key={movie.id} className="max-w-[200px] h-[400px] bg-gray-100 rounded-lg overflow-hidden shadow-md mb-5" onClick={() => addMovies(movie)}>
                         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-[230px] object-cover" />
                         <div className="p-4">
                           <h2 className="text-lg font-semibold mb-2">{movie.title}</h2>

@@ -8,11 +8,12 @@ export const RandomMoviesContainer = createContext(null);
 
 function Index() {
   const [movies, setMovies] = useState([]);
+  const [chosenMovies, setChosenMovies] = useState([]);
 
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <RandomMoviesContainer.Provider value={{ movies, setMovies }}>
+        <RandomMoviesContainer.Provider value={{ movies, setMovies, chosenMovies, setChosenMovies }}>
           <App />
         </RandomMoviesContainer.Provider>
       </BrowserRouter>
