@@ -4,6 +4,7 @@ import Movies from "./pages/Movies";
 import Landing from "./pages/Landing";
 import About from "./pages/About";
 import RecommendMoviesResult from "./pages/RecommendMoviesResult";
+import MovieDetailsView from "./pages/MovieDetailsView";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
               <Route path="/movies" element={<Movies />} />
               <Route path="/about" element={<About />} />
               <Route path="/recommendations_result" element={<RecommendMoviesResult />} />
+              <Route path='/movies/:id' element={<MovieDetailsView />} />
             </Routes>
         </div>
       </div>

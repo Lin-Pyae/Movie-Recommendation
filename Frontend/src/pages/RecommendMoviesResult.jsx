@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import MovieCard from '../components/MovieCard';
+import { RandomMoviesContainer } from "../main";
 
 const getMovieDetails = (movieId) => {
 
@@ -16,20 +17,33 @@ const getMovieDetails = (movieId) => {
 
 const RecommendMoviesResult = () => {
 
-    const [recommendedMovies, setRecommendedMovies] = useState([]);
+    const { recommendedMovies, setRecommendedMovies } = useContext(RandomMoviesContainer);
     const [error, setError] = useState(null);
   
+    // useEffect(() => {
+    //   fetch('https://backend-url.com/recommendations')
+    //     .then(response => {
+    //       if (!response.ok) {
+    //         throw new Error(`HTTP error! status: ${response.status}`);
+    //       }
+    //       return response.json();
+    //     })
+    //     .then(movieIds => {
+    //       return Promise.all(movieIds.map(getMovieDetails));
+    //     })
+    //     .then(movies => {
+    //       setRecommendedMovies(movies);
+    //     })
+    //     .catch(error => {
+    //       setError(error.toString());
+    //     });
+    // }, []);
+
     useEffect(() => {
-      fetch('https://backend-url.com/recommendations')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(movieIds => {
-          return Promise.all(movieIds.map(getMovieDetails));
-        })
+      //movie IDs for testing
+      const movieIds = [862, 8844, 15602];
+
+      Promise.all(movieIds.map(getMovieDetails))
         .then(movies => {
           setRecommendedMovies(movies);
         })
@@ -42,17 +56,16 @@ const RecommendMoviesResult = () => {
       return <div>Error: {error}</div>;
     }
 
-    const allRecommendData = recommendedMovies.map((obj, i) => {
-        return <MovieCard movie={obj} key={i} />       
-    });
-
     return (
-        <section>
-            <h1 className=" text-center text-5xl mt-4 font-bold leading-normal">Our Recommendations For You</h1>
-            {allRecommendData}
-        </section>
-
-  )
+      <section >
+        <h1 className="text-center text-5xl mt-4 font-bold leading-normal">Our Recommendations For You</h1>
+        <div className='flex flex-wrap justify-cente gap-4'>
+          {recommendedMovies.map((movie) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
+        </div>
+    </section>
+    )
 }
 
 export default RecommendMoviesResult
