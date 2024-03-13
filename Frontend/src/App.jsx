@@ -3,6 +3,7 @@ import { Route, Routes, Link } from "react-router-dom";
 import Movies from "./pages/Movies";
 import Landing from "./pages/Landing";
 import About from "./pages/About";
+import RecommendMoviesResult from "./pages/RecommendMoviesResult";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path="/movies" element={<Movies />} />
               <Route path="/about" element={<About />} />
+              <Route path="/recommendations_result" element={<RecommendMoviesResult />} />
             </Routes>
         </div>
       </div>
