@@ -9,10 +9,6 @@ function App() {
   return (
     <>
       <div className="w-screen overflow-x-hidden min-h-screen mainContainer">
-        {/* <nav className="w-full p-6 flex items-center justify-center text-lg gap-6 shadow-md fixed top-0 right-0">
-            <Link to='/'>Home</Link>
-            <Link to='/movies'>Movies</Link>
-        </nav> */}
         <div>
             <Routes>
               <Route path="/" element={<Landing />} />
