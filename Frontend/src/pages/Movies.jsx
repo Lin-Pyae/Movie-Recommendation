@@ -13,11 +13,6 @@ const Movies = () => {
 
     const API_KEY = '8ecbf28985308ca3b14b540321587f1f';
     const API_URL = 'https://api.themoviedb.org/3';
-
-    const options = {
-        animationData: LoadingAnimation,
-        loop: true
-    };
     
     const getMovies = async () => {
         try {

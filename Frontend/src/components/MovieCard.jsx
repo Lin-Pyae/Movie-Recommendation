@@ -8,11 +8,11 @@ const MovieCard = ({ movie }) => {
   const detailUrl = `/movies/${movie.id}`
 
   return (
-    <div className="flex">
-        <div className="shadow-lg rounded overflow-hidden flex flex-col">
+    <div className="flex w-[180px]">
+        <div className="shadow-lg rounded overflow-hidden flex flex-col w-full">
             {posterUrl ? 
             (
-                <img className="h-[230px] object-contain" src={posterUrl} alt={movie.original_title} />
+                <img className="h-[230px] w-full object-contain" src={posterUrl} alt={movie.original_title} />
             ) 
             : 
             (   

@@ -7,16 +7,20 @@ import { FaArrowLeft } from "react-icons/fa";
 import {Link} from 'react-router-dom';
 
 const getMovieDetails = (movieId) => {
+  const API_KEY = '8ecbf28985308ca3b14b540321587f1f';
+  const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
 
-    const API_KEY = '8ecbf28985308ca3b14b540321587f1f';
-
-    return fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    });
+  return fetch(url)
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+      })
+      .catch(error => {
+          console.error('Error fetching movie details:', error);
+          return null; // Return null to handle the error in the calling function
+      });
 };
 
 const RecommendMoviesResult = () => {
@@ -58,7 +62,7 @@ const RecommendMoviesResult = () => {
   }
 
   return (
-      <section className='mx-60 my-10' >
+      <section className='mx-48 my-10' >
         <motion.div 
           initial={{ x: -1000 }}
           animate={{ x:  0}}
@@ -71,7 +75,7 @@ const RecommendMoviesResult = () => {
             </Link>
         </motion.div> 
           <h1 className="text-center text-5xl mt-4 font-bold leading-normal my-10 bebas-neue-regular">Our Recommendations For You</h1>
-          <div className='flex flex-wrap justify-cente gap-20'>
+          <div className='flex flex-wrap justify-center gap-20'>
               {movieDetails.map((movie) => (
                   <MovieCard movie={movie} key={movie.id} />
               ))}

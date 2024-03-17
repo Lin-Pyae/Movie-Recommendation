@@ -17,10 +17,10 @@ const MovieItem = ({ movies, addMovies, refreshMovies, updateRoundValue, roundVa
         <div className="flex flex-wrap justify-center items-start gap-5">
           {movies.map((movie, index) => (
             <motion.div
-              initial={{ x: -1200 }}
+              initial={{ x: -2000 }}
               animate={{ x: 0 }}
-              transition={{ duration: 1, delay: 0 + index / 5}}
-              exit={{ x: -1500 }}
+              transition={{ duration: 1.2, delay: 0 + index / 5}}
+              exit={{ x: -2000 }}
               key={movie.id}
               className="w-[170px] h-[170px] rounded-xl overflow-hidden shadow-md mb-5 duration-200 border-4 hover:border-[#f8b500]"
               onClick={() => addMovies(movie)}
