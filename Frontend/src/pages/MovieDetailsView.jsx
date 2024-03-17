@@ -47,13 +47,13 @@ const MovieDetailsView = () => {
 
   return (
     <section>
-      {/* <motion.div 
+      <motion.div 
           initial={{ x: -1000 }}
           animate={{ x:  0}}
           transition={{ duration: 1, delay: .2}}
           className='fixed top-10 left-20'>
-            <Link to='/movies'><div className='text-xl bg-[#f8b500] text-white py-3 px-4'><FaArrowLeft /></div></Link>
-      </motion.div>  */}
+            <Link to='/recommendations_result'><div className='text-xl bg-[#f8b500] text-white py-3 px-4'><FaArrowLeft /></div></Link>
+      </motion.div> 
       <div className=' flex max-xl:flex-col max-lg:mx-20 justify-center mx-64 my-10 gap-6'>
         <img src={posterUrl} alt="" className=' max-xl:w-[400px] flex-shrink-0'/>
         <div className=''>

@@ -5,12 +5,10 @@ import MovieItem from "../components/MovieItem";
 import { useLottie } from "lottie-react";
 import LoadingAnimation from '../lottie/step.json';
 import { useNavigate } from 'react-router-dom';
-import RecommendMoviesResult from "./RecommendMoviesResult";
 
 const Movies = () => {
     const { movies, setMovies, chosenMovies, setChosenMovies, recommendedMovies, setRecommendedMovies } = useContext(RandomMoviesContainer);
     const [roundValue, setRoundValue] = useState(1);
-    const [showRecommendations, setShowRecommendations] = useState(false); 
     const navigate = useNavigate();
 
     const API_KEY = '8ecbf28985308ca3b14b540321587f1f';
@@ -46,9 +44,7 @@ const Movies = () => {
     }
 
     useEffect(() => {
-        if (recommendedMovies.length === 0) {
-            getMovies();
-        }
+        getMovies();
     }, []);
 
     useEffect(() => {
@@ -60,8 +56,7 @@ const Movies = () => {
             .then(response => {
                 console.log('Data sent successfully:', response.data);
                 setRecommendedMovies(response.data.recommendations)
-                setShowRecommendations(true);
-                // navigate("/recommendations_result");
+                navigate("/recommendations_result");
             })
             .catch(error => {
                 console.error('Error sending data:', error);
@@ -83,14 +78,9 @@ const Movies = () => {
                     <MovieItem movies={movies} addMovies={addMovies} refreshMovies={getMovies} updateRoundValue={updateRoundValue} roundValue={roundValue}/>
                 </div>
             ) : (
-                // Render RecommendMoviesResult component after roundValue reaches 6
-                <div className="w-screen h-screen flex flex-col p-12 overflow-auto">
-                    {showRecommendations ? (
-                        <RecommendMoviesResult recommendedMovies={recommendedMovies} />
-                    ) : (
-                        <h1 className="text-4xl font-bold text-gradient">Generating Recommendations</h1>
-                    )}
-                </div>
+            <div className="w-screen h-screen flex items-center justify-center text-2xl p-12 flex-col gap-8 overflow-hidden">
+                 <h1 className="text-4xl font-bold text-gradient">Generating Recommendations</h1>
+            </div>
             )}
         </div>
     );
