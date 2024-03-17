@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { RandomMoviesContainer } from "../main";
 import MovieItem from "../components/MovieItem";
-import { useLottie } from "lottie-react";
-import LoadingAnimation from '../lottie/step.json';
 import { useNavigate } from 'react-router-dom';
 
 const Movies = () => {
@@ -16,7 +14,7 @@ const Movies = () => {
     
     const getMovies = async () => {
         try {
-            const response = await axios.get(`${API_URL}/movie/popular`, {
+            const response = await axios.get(`${API_URL}/movie/popular?release_date.lte=2018-01-01`, {
                 params: {
                     api_key: API_KEY,
                     language: 'en-US',
@@ -42,6 +40,7 @@ const Movies = () => {
         getMovies();
     }, []);
 
+
     useEffect(() => {
         if (roundValue === 6) {
             console.log("sending");
@@ -58,6 +57,7 @@ const Movies = () => {
             });        
         }
     }, [chosenMovies, roundValue]);
+
     
 
     const updateRoundValue = () => {
@@ -68,7 +68,7 @@ const Movies = () => {
         <div>
             {roundValue !== 6 ? (
                 <div className="w-full flex items-center justify-center text-2xl p-12 flex-col gap-8 overflow-hidden">
-                    <h1 className="text-5xl font-bold text-gradient">Choice A Movie</h1>
+                    <h1 className="text-5xl font-bold text-gradient">Choose A Movie</h1>
                     <span className="text-[#f8b500] text-2xl uppercase font-bold">Round ({roundValue})</span>
                     <MovieItem movies={movies} addMovies={addMovies} refreshMovies={getMovies} updateRoundValue={updateRoundValue} roundValue={roundValue}/>
                 </div>

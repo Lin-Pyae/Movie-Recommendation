@@ -39,11 +39,11 @@ def home():
 
 @app.route('/randomOptions', methods=['GET'])
 def get_random_options():
-    data_quan = int(request.args.get('quan',10))
-    random_data = pd.merge(movies,links,on='movieId').sample(n=data_quan)
-    random_data = zip(list((random_data['tmdbId'])),list(random_data['title']))
-    random_data = dict(random_data)
-    return jsonify({"result":random_data})
+    data_quan = int(request.args.get('quan', 10))
+    random_data = pd.merge(movies, links, on='movieId').sample(n=data_quan)
+    result_list = [{"id": tmdb_id, "title": title} for tmdb_id, title in zip(random_data['tmdbId'], random_data['title'])]
+    return jsonify({"result": result_list})
+
 
 @app.route('/recommendations', methods=['GET', 'POST'])
 def get_recommendations():

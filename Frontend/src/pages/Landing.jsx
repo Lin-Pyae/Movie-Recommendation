@@ -1,35 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import '../css/main.css'
 
 const Landing = () => {
-
-    const API_KEY = '8ecbf28985308ca3b14b540321587f1f';
-    const API_URL = 'https://api.themoviedb.org/3';
-
-    useEffect(() => {
-        // Define the movie ID you want to fetch
-
-        // Make the API call to fetch the movie by its ID
-        const fetchData = async (movieId) => {
-            try {
-                const response = await axios.get(`${API_URL}/movie/${movieId}`, {
-                    params: {
-                        api_key: API_KEY
-                    }
-                });
-                const  data = response.data;
-                console.log(data);
-            } catch (error) {
-                console.error('Error fetching movie:', error);
-            }
-        };
-
-        // Call the fetchData function
-        fetchData(266285);
-    }, []);
     
 
     return (
