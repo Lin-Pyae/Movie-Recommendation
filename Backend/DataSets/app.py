@@ -37,6 +37,13 @@ recommender.fit(genres_encoded.toarray())
 def home():
     return 'Hello, this is the homepage!'
 
+@app.route('/randomOptions', methods=['GET'])
+def get_random_options():
+    data_quan = int(request.args.get('quan',10))
+    random_data = pd.merge(movies,links,on='movieId').sample(n=data_quan)
+    random_data = zip(list((random_data['tmdbId'])),list(random_data['title']))
+    random_data = dict(random_data)
+    return jsonify({"result":random_data})
 
 @app.route('/recommendations', methods=['GET', 'POST'])
 def get_recommendations():
