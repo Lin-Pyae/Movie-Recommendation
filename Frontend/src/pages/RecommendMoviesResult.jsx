@@ -5,6 +5,7 @@ import "../css/main.css"
 import {motion} from 'framer-motion';
 import { FaArrowLeft } from "react-icons/fa";
 import {Link} from 'react-router-dom';
+import Loading from '../components/Loading';
 
 const getMovieDetails = (movieId) => {
   const API_KEY = '8ecbf28985308ca3b14b540321587f1f';
@@ -46,16 +47,17 @@ const RecommendMoviesResult = () => {
           .catch(error => console.error(error));
   }, [rmovies]);
 
-  if (loading) {
+  if (loading && rmovies.length == 0) {
     return (
       <div className="w-screen h-screen flex items-center justify-center text-2xl p-12 flex-col gap-8 overflow-hidden">
         <h1 className="text-4xl font-bold text-gradient">Loading</h1>
+        <Loading />
       </div>
     );
 }
 
 
-  if (movieDetails.length === 0) {
+  if (rmovies.length == 0 && movieDetails.length === 0) {
     return (
       <div className="w-screen h-screen flex flex-col items-center justify-center text-center p-12">
         <h1 className="text-4xl font-bold mb-4">No Movie Details Yet</h1>

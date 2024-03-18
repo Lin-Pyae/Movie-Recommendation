@@ -48,7 +48,7 @@ const Movies = () => {
             console.log("sending");
             console.log(chosenMovies);
     
-            axios.post('http://127.0.0.1:5000/recommendations', chosenMovies)
+            axios.post('http://127.0.0.1:8080/recommendations', chosenMovies)
             .then(response => {
                 console.log('Data sent successfully:', response.data);
                 setRecommendedMovies(response.data.recommendations)
