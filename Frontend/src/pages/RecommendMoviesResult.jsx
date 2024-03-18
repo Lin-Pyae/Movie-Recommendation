@@ -25,20 +25,26 @@ const getMovieDetails = (movieId) => {
 
 const RecommendMoviesResult = () => {
 
-  const { recommendedMovies } = useContext(RandomMoviesContainer);
+  const { recommendedMovies, setChosenMovies } = useContext(RandomMoviesContainer);
 
   const [movieDetails, setMovieDetails] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [rmovies, setRmovies] = useState([])
+
+  useEffect(() => {
+    setRmovies(JSON.parse(localStorage.getItem("r_movies")))
+  }, [])
 
   useEffect(() => {
       // Fetch details for each recommended movie
-      Promise.all(recommendedMovies.map(movieId => getMovieDetails(movieId)))
+      console.log(rmovies)
+      Promise.all(rmovies.map(movieId => getMovieDetails(movieId)))
           .then(details => {
               setMovieDetails(details.filter(detail => detail !== null)); // Filter out null values
               setLoading(false);
           })
           .catch(error => console.error(error));
-  }, [recommendedMovies]);
+  }, [rmovies]);
 
   if (loading) {
     return (
@@ -54,7 +60,7 @@ const RecommendMoviesResult = () => {
       <div className="w-screen h-screen flex flex-col items-center justify-center text-center p-12">
         <h1 className="text-4xl font-bold mb-4">No Movie Details Yet</h1>
         <p className="text-xl mb-8">Go back to home and choose some movies to generate recommendations.</p>
-        <Link to="/" className="py-2 px-4 bg-[#f8b500] text-white rounded hover:bg-yellow-700 transition-colors">
+        <Link to="/" className="py-2 px-4 bg-[#f8b500] text-white rounded hover:bg-yellow-700 transition-colors" onClick={() => {setChosenMovies([])}}>
           <FaArrowLeft className="inline-block mr-2" /> Go Home
         </Link>
       </div>
@@ -68,7 +74,7 @@ const RecommendMoviesResult = () => {
           animate={{ x:  0}}
           transition={{ duration: 1, delay: .2}}
           className='fixed top-10 left-20'>
-            <Link to='/'>
+            <Link to='/' onClick={() => {setChosenMovies([])}}>
                 <div className='text-xl bg-[#f8b500] text-white py-3 px-4 flex justify-center items-center gap-8'>
                     <FaArrowLeft />Home Page
                 </div>

@@ -5,8 +5,8 @@ from matplotlib import pyplot as plt
 import scipy
 
 
-movies_df = pd.read_csv('movies.csv', usecols=['movieId', 'title'], dtype = {'movieId':'int32', 'title':'str'})
-rating_df = pd.read_csv('ratings.csv', usecols = ['userId', 'movieId', 'rating'],dtype={'userId': 'int32', 'movieId': 'int32', 'rating': 'float32'})
+movies_df = pd.read_csv('../DataSets/movies.csv', usecols=['movieId', 'title'], dtype = {'movieId':'int32', 'title':'str'})
+rating_df = pd.read_csv('../DataSets/ratings.csv', usecols = ['userId', 'movieId', 'rating'],dtype={'userId': 'int32', 'movieId': 'int32', 'rating': 'float32'})
 movies_df.head()
 
 

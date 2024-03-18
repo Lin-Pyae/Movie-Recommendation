@@ -3,9 +3,11 @@ import axios from "axios";
 import { RandomMoviesContainer } from "../main";
 import MovieItem from "../components/MovieItem";
 import { useNavigate } from 'react-router-dom';
+import Loading from "../components/Loading";
+
 
 const Movies = () => {
-    const { movies, setMovies, chosenMovies, setChosenMovies, recommendedMovies, setRecommendedMovies } = useContext(RandomMoviesContainer);
+    const { movies, setMovies, chosenMovies, setChosenMovies , setRecommendedMovies } = useContext(RandomMoviesContainer);
     const [roundValue, setRoundValue] = useState(1);
     const navigate = useNavigate();
 
@@ -50,6 +52,7 @@ const Movies = () => {
             .then(response => {
                 console.log('Data sent successfully:', response.data);
                 setRecommendedMovies(response.data.recommendations)
+                localStorage.setItem("r_movies", JSON.stringify(response.data.recommendations));
                 navigate("/recommendations_result");
             })
             .catch(error => {
@@ -74,7 +77,8 @@ const Movies = () => {
                 </div>
             ) : (
             <div className="w-screen h-screen flex items-center justify-center text-2xl p-12 flex-col gap-8 overflow-hidden">
-                 <h1 className="text-4xl font-bold text-gradient">Generating Recommendations</h1>
+                <h1 className="text-4xl font-bold text-gradient">Generating Recommendations</h1>
+                <Loading />
             </div>
             )}
         </div>
