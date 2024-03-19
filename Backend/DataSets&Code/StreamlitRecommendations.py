@@ -97,6 +97,9 @@ if len(selected_movies) >= 1:
         # Extracting the movie titles from the recommendations
         recommended_movie_titles = filtered_movies_df.iloc[recommendations[0]]['title']
 
+        # Filter out selected movies from recommended movie titles
+        recommended_movie_titles = [title for title in recommended_movie_titles if title not in selected_movies]
+
         # Display the recommended movies in rows of three
         st.write('Recommended Movies For You:')
         # Divide the layout into three columns
