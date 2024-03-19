@@ -32,9 +32,11 @@ recommender = NearestNeighbors(metric='cosine')
 # Fitting the encoded genres to the recommender
 recommender.fit(genres_encoded.toarray())
 
+# Movie ID to choose
+chosen_movie_id = 1  # Change this to the desired movie ID
 
-# Index of the movie the user picked
-movie_index = 0
+# Find the index of the movie with the chosen movie ID
+movie_index = movies[movies['movieId'] == chosen_movie_id].index[0]
 
 # Number of recommendations to return
 num_recommendations = 10

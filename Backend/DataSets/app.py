@@ -52,27 +52,31 @@ def get_recommendations():
         # Handle POST request to receive chosen movies data
         data = request.get_json()
         chosen_movies = data
+        print("Received data:", data)
+
         tmdb_ids = [movie['movie_id'] for movie in chosen_movies]
 
         movie_ids = links[links['tmdbId'].isin(tmdb_ids)]['movieId'].tolist()
+        print("Movie IDs corresponding to received TMDB IDs:", movie_ids)
 
         recommendations = []
         for movie_id in movie_ids:
-            movie_index = movies.index[movies['movieId'] == movie_id][0]
-            _, recs = recommender.kneighbors(genres_encoded[movie_index].toarray(), n_neighbors=10)
-            recommendations.extend(recs[0])
+            try:
+                movie_index = movies.index[movies['movieId'] == movie_id][0]
+                _, recs = recommender.kneighbors(genres_encoded[movie_index].toarray(), n_neighbors=10)
+                print("Recommendations for movie ID", movie_id, ":", recs[0])
+                recommendations.extend(recs[0])
+            except IndexError as e:
+                print("Error occurred:", e)
+            except KeyError as e:
+                print("Error occurred:", e)
 
+        print("Final recommendations:", recommendations)
+
+        # Extracting the recommended TMDB IDs corresponding to movie IDs in recommendations
         recommended_tmdb_ids = links[links['movieId'].isin(recommendations)]['tmdbId'].tolist()
 
-        # Store the recommendations in the global variable
-        recommendations = recommended_tmdb_ids
-
         return jsonify({'recommendations': recommended_tmdb_ids})
-
-    # elif request.method == 'GET':
-    #     # Handle GET request to return recommended TMDB IDs
-    #     recommended_tmdb_ids = [862, 8844, 15602]  # Placeholder for actual recommended TMDB IDs
-    #     return jsonify({'recommendations': recommendations})
 
     else:
         # If any other method is used, return a 405 Method Not Allowed status
